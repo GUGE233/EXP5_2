@@ -61,13 +61,30 @@ public class MainActivity extends AppCompatActivity {
         };
         recyclerview.setAdapter(commonAdapter);
 
+        //创建一个商品的信息表，点击按钮后根据position把对应位置的内容传入到good_info中
+        final List<information> informations = new ArrayList<information>(){
+            {
+                add(new information(R.drawable.ef,"¥ 5.00","Enchated Forest","作者 Johanna Basford"));
+                add(new information(R.drawable.arla,"¥ 59.00","Arla Milk","产地 德国"));
+                add(new information(R.drawable.devondale,"¥ 79.00","Devondale Milk","产地 澳大利亚"));
+                add(new information(R.drawable.kindle,"¥ 2399.00","Kindle Oasis","版本 8GB"));
+                add(new information(R.drawable.waitrose,"¥ 179.00","waitrose 早餐麦片","重量 2Kg"));
+                add(new information(R.drawable.mcvitie,"¥ 14.90","Mcvitie's 饼干","产地 英国"));
+                add(new information(R.drawable.ferrero,"¥ 132.59","Ferrero Rocher","重量 300g"));
+                add(new information(R.drawable.maltesers,"¥ 141.43","Maltesers","重量 118g"));
+                add(new information(R.drawable.lindt,"¥ 139.43","Lindt","重量 249g"));
+                add(new information(R.drawable.borggreve,"¥ 28.90","Borggreve","重量 640g"));
+            }
+        };
+
+
         final Intent intent = new Intent(MainActivity.this,good_info.class);
         commonAdapter.setOnItemClickListener(new CommonAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
+                information info = informations.get(position);
+                intent.putExtra("Info",info);
                 startActivity(intent);
-
-                //  setContentView(R.layout.goods_ifo);
             }
 
             @Override
