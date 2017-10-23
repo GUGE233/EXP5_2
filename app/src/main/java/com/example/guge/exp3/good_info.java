@@ -1,8 +1,12 @@
 package com.example.guge.exp3;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -12,12 +16,18 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-public class good_info extends AppCompatActivity {
+import static com.example.guge.exp3.cart.list_cart;
 
+
+public class good_info extends AppCompatActivity {
+    //判断星星现在的状态
+    boolean flag = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_good_info);
+
+
 
         //商品详情页面底部的ListView
         ListView bott_list = (ListView)findViewById(R.id.bot_list);
@@ -28,7 +38,7 @@ public class good_info extends AppCompatActivity {
 
 
         //设定图片、名字、价格、信息
-        information inf = (information) getIntent().getSerializableExtra("Info");
+        final information inf = (information) getIntent().getSerializableExtra("Info");
         ImageView pic = (ImageView)findViewById(R.id.shop_picture);
         pic.setImageResource(inf.getPicture());
         TextView name = (TextView)findViewById(R.id.shop_name);
@@ -37,5 +47,47 @@ public class good_info extends AppCompatActivity {
         price.setText(inf.getPrice());
         TextView message = (TextView)findViewById(R.id.shop_message);
         message.setText(inf.getMessage());
+
+        //返回按钮
+        Button back = (Button)findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        //星星图标处理
+        final Button star = (Button)findViewById(R.id.star);
+
+        star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(flag){
+                    star.setBackground(getDrawable(R.drawable.empty_star));
+                    flag = false;
+                }
+                else{
+                    star.setBackground(getDrawable(R.drawable.full_star));
+                    flag = true;
+                }
+            }
+        });
+
+        //购物车按钮处理
+
+        final Intent intent = new Intent(good_info.this,cart.class);
+        Button cart = (Button)findViewById(R.id.shop_cart);
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                intent.putExtra("Info_to_cart",inf);
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 }

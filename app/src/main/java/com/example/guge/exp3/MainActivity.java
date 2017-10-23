@@ -3,6 +3,7 @@ package com.example.guge.exp3;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,20 +65,20 @@ public class MainActivity extends AppCompatActivity {
         //创建一个商品的信息表，点击按钮后根据position把对应位置的内容传入到good_info中
         final List<information> informations = new ArrayList<information>(){
             {
-                add(new information(R.drawable.ef,"¥ 5.00","Enchated Forest","作者 Johanna Basford"));
-                add(new information(R.drawable.arla,"¥ 59.00","Arla Milk","产地 德国"));
-                add(new information(R.drawable.devondale,"¥ 79.00","Devondale Milk","产地 澳大利亚"));
-                add(new information(R.drawable.kindle,"¥ 2399.00","Kindle Oasis","版本 8GB"));
-                add(new information(R.drawable.waitrose,"¥ 179.00","waitrose 早餐麦片","重量 2Kg"));
-                add(new information(R.drawable.mcvitie,"¥ 14.90","Mcvitie's 饼干","产地 英国"));
-                add(new information(R.drawable.ferrero,"¥ 132.59","Ferrero Rocher","重量 300g"));
-                add(new information(R.drawable.maltesers,"¥ 141.43","Maltesers","重量 118g"));
-                add(new information(R.drawable.lindt,"¥ 139.43","Lindt","重量 249g"));
-                add(new information(R.drawable.borggreve,"¥ 28.90","Borggreve","重量 640g"));
+                add(new information("E",R.drawable.ef,"¥ 5.00","Enchated Forest","作者 Johanna Basford"));
+                add(new information("A",R.drawable.arla,"¥ 59.00","Arla Milk","产地 德国"));
+                add(new information("D",R.drawable.devondale,"¥ 79.00","Devondale Milk","产地 澳大利亚"));
+                add(new information("K",R.drawable.kindle,"¥ 2399.00","Kindle Oasis","版本 8GB"));
+                add(new information("W",R.drawable.waitrose,"¥ 179.00","waitrose 早餐麦片","重量 2Kg"));
+                add(new information("M",R.drawable.mcvitie,"¥ 14.90","Mcvitie's 饼干","产地 英国"));
+                add(new information("F",R.drawable.ferrero,"¥ 132.59","Ferrero Rocher","重量 300g"));
+                add(new information("M",R.drawable.maltesers,"¥ 141.43","Maltesers","重量 118g"));
+                add(new information("L",R.drawable.lindt,"¥ 139.43","Lindt","重量 249g"));
+                add(new information("B",R.drawable.borggreve,"¥ 28.90","Borggreve","重量 640g"));
             }
         };
 
-
+        //点击或长安列表的操作
         final Intent intent = new Intent(MainActivity.this,good_info.class);
         commonAdapter.setOnItemClickListener(new CommonAdapter.OnItemClickListener() {
             @Override
@@ -90,7 +91,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onLongClick(int position) {
                 itemsList.remove(position);
+                informations.remove(position);
                 commonAdapter.notifyDataSetChanged();
+            }
+        });
+
+        //浮动按钮相关
+        final FloatingActionButton floatingActionButton = (FloatingActionButton)findViewById(R.id.FAB);
+        final Intent intent2 = new Intent(MainActivity.this,cart.class);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    floatingActionButton.setBackground(getDrawable(R.drawable.shoplist));
+                    startActivity(intent2);
             }
         });
 

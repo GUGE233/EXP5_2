@@ -11,13 +11,20 @@ public class information implements Serializable {
     private String price;
     private String name;
     private String message;
-    public information(int picture,String price,String name,String message){
+    private String firstletter;
+
+
+    public information(String firstletter,int picture,String price,String name,String message){
+        this.firstletter = firstletter;
         this.picture = picture;
         this.price = price;
         this.name = name;
         this. message = message;
     }
 
+    public void setFirstletter(String firstletter){
+        this.firstletter = firstletter;
+    }
     public void setName(String name){
         this.name = name;
     }
@@ -31,6 +38,9 @@ public class information implements Serializable {
         this.message = message;
     }
 
+    public String getFirstletter(){
+        return firstletter;
+    }
     public int getPicture(){
         return picture;
     }
