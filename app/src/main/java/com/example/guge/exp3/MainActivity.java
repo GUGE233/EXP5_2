@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import static com.example.guge.exp3.cart.list_cart;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        //点击或长安列表的操作
+        //点击或长按列表的操作
         final Intent intent = new Intent(MainActivity.this,good_info.class);
         commonAdapter.setOnItemClickListener(new CommonAdapter.OnItemClickListener() {
             @Override
@@ -98,11 +100,15 @@ public class MainActivity extends AppCompatActivity {
 
         //浮动按钮相关
         final FloatingActionButton floatingActionButton = (FloatingActionButton)findViewById(R.id.FAB);
+        floatingActionButton.setImageResource(R.drawable.mainpage);
         final Intent intent2 = new Intent(MainActivity.this,cart.class);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    floatingActionButton.setBackground(getDrawable(R.drawable.shoplist));
+                    floatingActionButton.setImageResource(R.drawable.shoplist);
+                if(list_cart.size()==0){
+                    list_cart.add(new information("*",123,"价格","购物车","123"));
+                }
                     startActivity(intent2);
             }
         });

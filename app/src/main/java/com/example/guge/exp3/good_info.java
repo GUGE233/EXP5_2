@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -74,6 +75,11 @@ public class good_info extends AppCompatActivity {
             }
         });
 
+
+
+
+
+
         //购物车按钮处理
 
         final Intent intent = new Intent(good_info.this,cart.class);
@@ -81,9 +87,12 @@ public class good_info extends AppCompatActivity {
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                intent.putExtra("Info_to_cart",inf);
-                startActivity(intent);
+                //按下购物车按钮就把商品的信息加入到购物车信息表中，当通过浮动按钮启动购物车的activity时，Adapter才吧信息表中的内容填充到购物车的Listview中
+                if(list_cart.size()==0){
+                    list_cart.add(new information("*",123,"价格","购物车","123"));
+                }
+                list_cart.add(new information(inf.getFirstletter(),inf.getPicture(),inf.getPrice(),inf.getName(),inf.getMessage()));
+                Toast.makeText(good_info.this,"成功将商品加入购物车",Toast.LENGTH_SHORT).show();
             }
         });
 
