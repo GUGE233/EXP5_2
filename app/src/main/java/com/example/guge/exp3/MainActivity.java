@@ -29,6 +29,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Random;
 
 import static com.example.guge.exp3.cart.list_cart;
 
@@ -67,16 +68,16 @@ public class MainActivity extends AppCompatActivity {
         //创建一个商品的信息表，点击按钮后根据position把对应位置的内容传入到good_info中
         final List<information> informations = new ArrayList<information>(){
             {
-                add(new information("E",R.drawable.ef,"¥ 5.00","Enchated Forest","作者 Johanna Basford"));
-                add(new information("A",R.drawable.arla,"¥ 59.00","Arla Milk","产地 德国"));
-                add(new information("D",R.drawable.devondale,"¥ 79.00","Devondale Milk","产地 澳大利亚"));
-                add(new information("K",R.drawable.kindle,"¥ 2399.00","Kindle Oasis","版本 8GB"));
-                add(new information("W",R.drawable.waitrose,"¥ 179.00","waitrose 早餐麦片","重量 2Kg"));
-                add(new information("M",R.drawable.mcvitie,"¥ 14.90","Mcvitie's 饼干","产地 英国"));
-                add(new information("F",R.drawable.ferrero,"¥ 132.59","Ferrero Rocher","重量 300g"));
-                add(new information("M",R.drawable.maltesers,"¥ 141.43","Maltesers","重量 118g"));
-                add(new information("L",R.drawable.lindt,"¥ 139.43","Lindt","重量 249g"));
-                add(new information("B",R.drawable.borggreve,"¥ 28.90","Borggreve","重量 640g"));
+                add(new information("E",R.mipmap.ef,"¥ 5.00","Enchated Forest","作者 Johanna Basford"));
+                add(new information("A",R.mipmap.arla,"¥ 59.00","Arla Milk","产地 德国"));
+                add(new information("D",R.mipmap.devondale,"¥ 79.00","Devondale Milk","产地 澳大利亚"));
+                add(new information("K",R.mipmap.kindle,"¥ 2399.00","Kindle Oasis","版本 8GB"));
+                add(new information("W",R.mipmap.waitrose,"¥ 179.00","waitrose 早餐麦片","重量 2Kg"));
+                add(new information("M",R.mipmap.mcvitie,"¥ 14.90","Mcvitie's 饼干","产地 英国"));
+                add(new information("F",R.mipmap.ferrero,"¥ 132.59","Ferrero Rocher","重量 300g"));
+                add(new information("M",R.mipmap.maltesers,"¥ 141.43","Maltesers","重量 118g"));
+                add(new information("L",R.mipmap.lindt,"¥ 139.43","Lindt","重量 249g"));
+                add(new information("B",R.mipmap.borggreve,"¥ 28.90","Borggreve","重量 640g"));
             }
         };
 
@@ -86,7 +87,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(int position) {
                 information info = informations.get(position);
-                intent.putExtra("Info",info);
+                Bundle bundle = new Bundle();
+                bundle.putString("first_let",info.getFirstletter());
+                bundle.putInt("pic",info.getPicture());
+                bundle.putString("name",info.getName());
+                bundle.putString("message",info.getMessage());
+                bundle.putString("price",info.getPrice());
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
 
@@ -105,15 +112,31 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    floatingActionButton.setImageResource(R.drawable.shoplist);
+                floatingActionButton.setImageResource(R.drawable.shoplist);
                 if(list_cart.size()==0){
                     list_cart.add(new information("*",123,"价格","购物车","123"));
                 }
-                    startActivity(intent2);
+                startActivity(intent2);
             }
         });
 
+        //生成随机数，
+        Random random = new Random();
+        int ran = random.nextInt(itemsList.size());
 
+        //先定义一个bundle，往里面装要传递的信息
+        information information =informations.get(ran);
+        Bundle bundle = new Bundle();
+        bundle.putString("first_let",information.getFirstletter());
+        bundle.putString("name",information.getName());
+        bundle.putString("message",information.getMessage());
+        bundle.putString("price",information.getPrice());
+        bundle.putInt("pic",information.getPicture());
+
+        //广播信息，action设置为“out”
+        Intent intentBoradcast = new Intent("out");
+        intentBoradcast.putExtras(bundle);
+        sendBroadcast(intentBoradcast);
 
 
 
@@ -124,6 +147,5 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
-
 
 

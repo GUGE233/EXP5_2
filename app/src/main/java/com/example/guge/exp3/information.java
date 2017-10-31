@@ -14,7 +14,8 @@ public class information implements Serializable {
     private String firstletter;
 
 
-    public information(String firstletter,int picture,String price,String name,String message){
+    public information(String firstletter,int picture,
+                       String price,String name,String message){
         this.firstletter = firstletter;
         this.picture = picture;
         this.price = price;
